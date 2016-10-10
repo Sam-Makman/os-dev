@@ -1,24 +1,28 @@
-mov ah, 0x0e
+; A bootsector that prints a string using a function
 
-mov al, the_secret
-int 0x10
+;tells the assembler where the code will be loaded
+[org 0x7c00]
 
-mov al, [the_secret]
-int 0x10
+  mov bx, HELLO_MSG ;pass message in bx register
+  call print_string ;call print string function
 
-mov bx, the_secret
-add bx, 0x7c00
-mov al, [bx]
-int 0x10
+  mov bx, GOODBYE_MSG ;load goodby message in bx register
+  call print_string ; call print_string
 
-mov al, [0x7c1e]
-int 0x10
+  jmp $ ;Hang
 
-jmp $
+  %include "print_string.asm"
 
-the_secret:
-  db "X"
 
+  ;DATA
+  HELLO_MSG:
+    db 'Hello World', 0   ;0 is our string terminator value
+
+  GOODBYE_MSG:
+    db "Goodbye!", 0
+
+
+;This creates the bootsector, padding it with zero's
 times 510-($-$$) db 0
 
 dw 0xaa55
