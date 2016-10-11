@@ -9,10 +9,12 @@
   mov bx, GOODBYE_MSG ;load goodby message in bx register
   call print_string ; call print_string
 
+  mov dx, 0xFEC2
+  call print_hex
   jmp $ ;Hang
 
   %include "print_string.asm"
-
+  %include "print_hex.asm"
 
   ;DATA
   HELLO_MSG:
