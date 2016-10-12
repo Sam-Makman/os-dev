@@ -1,30 +1,39 @@
-; A bootsector that prints a string using a function
-
-;tells the assembler where the code will be loaded
 [org 0x7c00]
 
-  mov bx, HELLO_MSG ;pass message in bx register
-  call print_string ;call print string function
+    mov [BOOT_DRIVE], dl ; BIOS stores out boot drive in dl,
+                         ; store this value so we don't lose it
 
-  mov bx, GOODBYE_MSG ;load goodby message in bx register
-  call print_string ; call print_string
+    mov bp, 0x8000 ; this is the start of our stack, way out of the way
+    mov sp, bp      ; set stack pointer to base of the stack
 
-  mov dx, 0xFEC2
-  call print_hex
-  jmp $ ;Hang
+    mov bx, 0x9000 ; load 5 sectors 0x0000 (ES) to 0x9000 (BX)
+    mov dh, 5       ; from boot disk
+    mov dl, [BOOT_DRIVE]
+    call disk_load
 
-  %include "print_string.asm"
-  %include "print_hex.asm"
+    mov dx, [0x9000] ; print the first loaded work, which
+    call print_hex ; we expect to be 0xdada. Stored at 0x9000
 
-  ;DATA
-  HELLO_MSG:
-    db 'Hello World', 0   ;0 is our string terminator value
+    mov dx, [0x9000 + 512] ; print the first word from the second sector
+    call print_hex ; we expect 0xface
 
-  GOODBYE_MSG:
-    db "Goodbye!", 0
+    jmp $
+
+    %include "./print/print_string  .asm"
+    %include "./hex/print_hex.asm"
+    %include "disk_load.asm"
 
 
-;This creates the bootsector, padding it with zero's
-times 510-($-$$) db 0
+    ;Global Variables
+    BOOT_DRIVE db 0
 
-dw 0xaa55
+    ;bootsector padding
+    times 510-($-$$) db 0
+    dw 0xaa55
+
+;We know  that  BIOS  will  load  only  the  first 512-byte  sector  from  the disk ,
+; so if we  purposely  add a few  more  sectors  to our  code by  repeating  some
+; familiar  numbers , we can  prove  to  ourselfs  that we  actually  loaded  those
+; additional  two  sectors  from  the  disk we  booted  from.
+times  256 dw 0xdada
+times  256 dw 0xface
