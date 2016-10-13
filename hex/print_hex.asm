@@ -16,7 +16,7 @@ print_hex:
   shr cl, 4
   call add_to
 
-  mov al, dl
+  mov cl, dl
   sal cl, 4
   shr cl, 4
   call add_to

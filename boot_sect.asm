@@ -19,7 +19,7 @@
 
     jmp $
 
-    %include "./print/print_string  .asm"
+    %include "./print/print_string.asm"
     %include "./hex/print_hex.asm"
     %include "disk_load.asm"
 
@@ -35,5 +35,5 @@
 ; so if we  purposely  add a few  more  sectors  to our  code by  repeating  some
 ; familiar  numbers , we can  prove  to  ourselfs  that we  actually  loaded  those
 ; additional  two  sectors  from  the  disk we  booted  from.
-times  256 dw 0xdada
-times  256 dw 0xface
+times  256 dw 0xDADA
+times  256 dw 0xFACE
