@@ -1,4 +1,4 @@
-print_hex:
+print_hex: ; print hex in dx
   pusha ;push registers to stack
   mov bx, HEX_OUT ;location of hex string format to bx
   add bx, 1 ; add 1 to location to skip first value of string
