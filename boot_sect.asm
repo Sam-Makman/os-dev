@@ -7,7 +7,7 @@
     mov sp, bp      ; set stack pointer to base of the stack
 
     mov bx, 0x9000 ; load 5 sectors 0x0000 (ES) to 0x9000 (BX)
-    mov dh, 5       ; from boot disk
+    mov dh, 2       ; from boot disk
     mov dl, [BOOT_DRIVE]
     call disk_load
 
