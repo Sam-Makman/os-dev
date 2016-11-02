@@ -22,7 +22,7 @@ kernel.bin: kernel/kernel_entry.o ${OBJ}
 # For  simplicity , we C files  depend  on all  header  files.
 %.o : %.c ${HEADERS}
 	gcc -ffreestanding  -c $< -o $@
-	
+
 # Assemble  the  kernel_entry.
 %.o : %.asm
 	nasm $< -f elf_i386 -o $@
