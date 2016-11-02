@@ -10,13 +10,13 @@ all: os-image
 # This is the  actual  disk  image  that  the  computer  loads
 # which  is the  combination  of our  compiled  bootsector  and  kernel
 os-image: boot/boot_sect.bin  kernel.bin
-	cat $^ > os -image
+	cat $^ > os-image
 
 # This  builds  the  binary  of our  kernel  from  two  object  files:
 #   - the  kernel_entry , which  jumps  to main() in our  kernel
 #   - the  compiled C kernel
 kernel.bin: kernel/kernel_entry.o ${OBJ}
-	ld -o $@ -Ttext 0x1000 $^ --oformat  binary
+	ld -o $@ -Ttext 0x1000 $^ -m elf_i386 --oformat  binary
 
 # Generic  rule  for  compiling C code to an  object  file
 # For  simplicity , we C files  depend  on all  header  files.
@@ -25,7 +25,7 @@ kernel.bin: kernel/kernel_entry.o ${OBJ}
 
 # Assemble  the  kernel_entry.
 %.o : %.asm
-	nasm $< -f elf_i386 -o $@
+	nasm $< -f elf -o $@
 
 %.bin : %.asm
 	nasm $< -f bin -I  '../../16 bit/' -o $@
