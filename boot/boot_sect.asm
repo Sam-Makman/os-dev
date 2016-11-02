@@ -7,10 +7,10 @@ call  print_string
 call  switch_to_pm      ; Note  that we  never  return  from  here.
 jmp $
 
-%include "./print/print_string.asm"
-%include "gdt.asm"
-%include "./print/print_string_pm.asm"
-%include "switch_to_pm.asm"
+%include "./boot/print/print_string.asm"
+%include "./boot/pm/gdt.asm"
+%include "./boot/print/print_string_pm.asm"
+%include "./boot/pm/switch_to_pm.asm"
 [bits  32]
 
 ; This is  where we  arrive  after  switching  to and  initialising  protected  mode.
