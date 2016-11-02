@@ -32,4 +32,4 @@ kernel.bin: kernel/kernel_entry.o ${OBJ}
 
 clean:
 	rm -fr *.bin *.dis *.o os-image
-	rm -fr  kernel /*.o boot /*.bin  drivers /*.o
+	rm -fr  kernel/*.o boot/*.bin  drivers/*.o
