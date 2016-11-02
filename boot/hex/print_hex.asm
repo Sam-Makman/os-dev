@@ -23,7 +23,7 @@ print_hex: ; print hex in dx
 
   mov bx, HEX_OUT
   call print_string
-  popa~/
+  popa
   ret
 
 
