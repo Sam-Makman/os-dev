@@ -3,6 +3,7 @@
 
 
 #define  VIDEO_ADDRESS 0xb8000
+#define CURSOR_ADDRESS 0xb87D0
 #define  MAX_ROWS  25
 #define  MAX_COLS  80
 
@@ -24,5 +25,7 @@ int get_cursor();
 int handle_scrolling(int cursor_offset);
 
 void set_cursor(int offest);
+
+void clear_screen();
 
 #endif
