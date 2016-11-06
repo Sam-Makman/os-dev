@@ -1,7 +1,7 @@
 void print_string(char * string){
   char c = string[0];
   int i = 0;
-  while(c != 0x0000)
+  while(c != 0x0000){
     print_char(c, i*2, 0, WHITE_ON_BLACK);
     i++;
     c = string[i];

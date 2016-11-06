@@ -3,6 +3,7 @@ C_SOURCES = $(wildcard  kernel/*.c drivers/*.c)
 HEADERS = $(wildcard  kernel/*.h drivers/*.h)
 
 # TODO: Make  sources  dep on all  header  files.
+
 # Convert  the *.c filenames  to *.o to give a list of  object  files  to  build
 OBJ = ${C_SOURCES :.c=.o}
 # Defaul  build  target
