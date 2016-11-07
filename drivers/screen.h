@@ -24,7 +24,7 @@ int get_cursor();
 
 int handle_scrolling(int cursor_offset);
 
-void set_cursor(int offest);
+void set_cursor(int offset);
 
 void clear_screen();
 
